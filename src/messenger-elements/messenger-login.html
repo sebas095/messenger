@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="messenger-login">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-input label="Correo electrónico" type="email" required="true"></paper-input>
+    <paper-input label="Contraseña" type="password" required="true"></paper-input>
+    <paper-button raised id="button">Ingresar</paper-button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-login",
+      properties: {
+        name: {
+          type: Boolean
+        }
+      }
+    });
+  </script>
+</dom-module>

@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../messenger-elements/messenger-login.html">
 
 <dom-module id="messenger-app">
   <template>
@@ -15,7 +16,7 @@
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <messenger-login></messenger-login>
   </template>
 
   <script>
