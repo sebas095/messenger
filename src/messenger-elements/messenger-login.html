@@ -36,13 +36,17 @@
         password: String,
         signUp: Boolean
       },
+
       ready: function() {
         this.$.button.addEventListener('click', () => this.sendForm());
       },
+
       sendForm: function() {
         if (this.signUp) {
           this.$.auth.createUserWithEmailAndPassword(this.email, this.password)
-          .then(() => {
+          .then((user) => {
+            // uid, displayName, email
+            this.createUser(user);
             console.log('Usuario creado');
           });
         } else {
@@ -51,7 +55,15 @@
               console.log('Sesión Iniciada');
             });
         }
+      },
 
+      createUser: function(firebaseUser) {
+        firebase.database().ref('/users/' + firebaseUser.uid).set({
+          name: firebaseUser.email,
+          emil: firebaseUser.email,
+          uid: firebaseUser.uid,
+          photoURL: 'http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg'
+        });
       }
     });
   </script>
