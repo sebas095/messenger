@@ -1,0 +1,7 @@
+{
+  "name": "messenger",
+  "short_name": "messenger",
+  "description": "Windows clone MSN to chat",
+  "start_url": "/",
+  "display": "standalone"
+}
