@@ -1,7 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 
 <dom-module id="messenger-app">
   <template>
+    <firebase-app
+      auth-domain="messenger-facilito-a3d55.firebaseapp.com"
+      database-url="https://messenger-facilito-a3d55.firebaseio.com"
+      api-key="AIzaSyC5sZyAFVVxHnJ3J8rsCN0xanh9zUSmvWE"
+      storage-bucket="messenger-facilito-a3d55.appspot.com"
+      messaging-sender-id="868503103247">
+    </firebase-app>
     <style>
       :host {
         display: block;
@@ -16,7 +24,7 @@
       properties: {
         prop1: {
           type: String,
-          value: 'messenger-app',
+          value: 'world',
         },
       },
     });
