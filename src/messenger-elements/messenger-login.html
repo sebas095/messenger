@@ -19,9 +19,9 @@
     </style>
     <firebase-auth id="auth"></firebase-auth>
     <form is="iron-form" id="form">
-      <paper-input id="email" label="Correo electrónico" type="email" required="true" value={{email}}></paper-input>
-      <paper-input id="password" label="Contraseña" type="password" required="true" value={{password}}></paper-input>
-      <paper-checkbox id="checkbox" active={{signUp}}>Es una cuenta nueva</paper-checkbox>
+      <paper-input id="email" label="Correo electrónico" type="email" required="true" value="{{email}}"></paper-input>
+      <paper-input id="password" label="Contraseña" type="password" required="true" value="{{password}}"></paper-input>
+      <paper-checkbox id="checkbox" active="{{signUp}}">Es una cuenta nueva</paper-checkbox>
       <div>
         <paper-button raised id="button">Ingresar</paper-button>
       </div>
@@ -31,14 +31,18 @@
   <script>
     Polymer({
       is: "messenger-login",
+
       properties: {
         email: String,
         password: String,
-        signUp: Boolean
+        signUp: Boolean,
+        user: Object
       },
 
       ready: function() {
+        this.$.auth.signOut();
         this.$.button.addEventListener('click', () => this.sendForm());
+        this.$.auth.auth.onAuthStateChanged((usr) => this.handleAuth(usr));
       },
 
       sendForm: function() {
@@ -51,7 +55,8 @@
           });
         } else {
           this.$.auth.signInWithEmailAndPassword(this.email, this.password)
-            .then(() => {
+            .then((user) => {
+              this.user = user;
               console.log('Sesión Iniciada');
             });
         }
@@ -64,6 +69,16 @@
           uid: firebaseUser.uid,
           photoURL: 'http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg'
         });
+
+        this.user = firebaseUser;
+      },
+
+      handleAuth: function(user) {
+        if (user) {
+          this.fire('login');
+        } else {
+          this.fire('logout');
+        }
       }
     });
   </script>

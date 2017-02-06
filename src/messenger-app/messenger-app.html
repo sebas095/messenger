@@ -30,7 +30,7 @@
       }
     </style>
     <div id="contenedor" class="layout horizontal">
-      <messenger-login></messenger-login>
+      <messenger-login user="{{user}}" on-login="authenticate"></messenger-login>
       <messenger-home></messenger-home>
     </div>
   </template>
@@ -38,12 +38,17 @@
   <script>
     Polymer({
       is: 'messenger-app',
+
       properties: {
-        prop1: {
-          type: String,
-          value: 'world',
-        },
+        user: {
+          type: Object,
+          notify: true
+        }
       },
+
+      authenticate: function(ev) {
+        console.log('Se logueo');
+      }
     });
   </script>
 </dom-module>
