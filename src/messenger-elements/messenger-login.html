@@ -1,6 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 
 <dom-module id="messenger-login">
   <template>
@@ -14,18 +17,41 @@
         background-color: var(--accent-color);
       }
     </style>
-    <paper-input label="Correo electrónico" type="email" required="true"></paper-input>
-    <paper-input label="Contraseña" type="password" required="true"></paper-input>
-    <paper-button raised id="button">Ingresar</paper-button>
+    <firebase-auth id="auth"></firebase-auth>
+    <form is="iron-form" id="form">
+      <paper-input id="email" label="Correo electrónico" type="email" required="true" value={{email}}></paper-input>
+      <paper-input id="password" label="Contraseña" type="password" required="true" value={{password}}></paper-input>
+      <paper-checkbox id="checkbox" active={{signUp}}>Es una cuenta nueva</paper-checkbox>
+      <div>
+        <paper-button raised id="button">Ingresar</paper-button>
+      </div>
+    </form>
   </template>
 
   <script>
     Polymer({
       is: "messenger-login",
       properties: {
-        name: {
-          type: Boolean
+        email: String,
+        password: String,
+        signUp: Boolean
+      },
+      ready: function() {
+        this.$.button.addEventListener('click', () => this.sendForm());
+      },
+      sendForm: function() {
+        if (this.signUp) {
+          this.$.auth.createUserWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            console.log('Usuario creado');
+          });
+        } else {
+          this.$.auth.signInWithEmailAndPassword(this.email, this.password)
+            .then(() => {
+              console.log('Sesión Iniciada');
+            });
         }
+
       }
     });
   </script>
