@@ -34,7 +34,7 @@
     </style>
     <div id="contenedor" class="layout horizontal">
       <messenger-login id="login" user="{{user}}" on-login="authenticate"></messenger-login>
-      <messenger-home id="home" class="oculto"></messenger-home>
+      <messenger-home id="home" ></messenger-home>
     </div>
   </template>
 
@@ -51,8 +51,8 @@
 
       authenticate: function(ev) {
         console.log('Soy app y recibi un cambio en el login');
-        this.$.login.classList.add('oculto');
-        this.$.home.classList.remove('oculto');
+        this.$.login.hide();
+        this.$.home.show();
       }
     });
   </script>
