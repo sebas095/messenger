@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+
+<dom-module id="messenger-settings-menu">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <firebase-auth id="auth" user="{{user}}"></firebase-auth>
+    <button id="logout">Cerrar sesión</button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-settings-menu",
+
+      properties: {
+        user: Object
+      },
+
+      ready: function() {
+        this.$.logout.addEventListener('click', () => {
+          this.$.auth.signOut();
+        });
+      },
+    });
+  </script>
+</dom-module>

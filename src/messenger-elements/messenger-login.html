@@ -108,6 +108,7 @@
         if (user) {
           this.fire('login');
         } else {
+          console.log('Cerré sesión');
           this.fire('logout');
         }
       },
