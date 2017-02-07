@@ -51,16 +51,24 @@
       },
 
       authenticate: function(ev) {
-        console.log('Soy app y recibi un cambio en el login');
+        this.connect();
         this.$.login.hide();
         this.$.home.show();
       },
 
       signOut: function() {
-        console.log('user', this.user);
+        this.unconnect();
         this.user = null;
         this.$.home.hide();
         this.$.login.show();
+      },
+
+      connect: function() {
+        firebase.database().ref('/connected/' + this.user.uid).set(true);
+      },
+
+      unconnect: function() {
+        firebase.database().ref('/connected/' + this.user.uid).remove();
       }
     });
   </script>
