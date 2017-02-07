@@ -37,6 +37,7 @@
 
       ready: function() {
         this.$.logout.addEventListener('click', () => {
+          this.fire('logout');
           this.$.auth.signOut();
         });
       },

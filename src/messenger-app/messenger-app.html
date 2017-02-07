@@ -37,8 +37,8 @@
     <app-localstorage-document key="user" data="{{user}}"></app-localstorage-document>
 
     <div id="contenedor" class="layout horizontal">
-      <messenger-login id="login" user="{{user}}" on-login="authenticate" on-logout="signOut"></messenger-login>
-      <messenger-home id="home"></messenger-home>
+      <messenger-login id="login" class="oculto" user="{{user}}" on-login="authenticate" on-logout="signOut"></messenger-login>
+      <messenger-home id="home" on-logout="signOut"></messenger-home>
     </div>
   </template>
 
@@ -47,10 +47,7 @@
       is: 'messenger-app',
 
       properties: {
-        user: {
-          type: Object,
-          notify: true
-        }
+        user: Object
       },
 
       authenticate: function(ev) {
@@ -60,6 +57,8 @@
       },
 
       signOut: function() {
+        console.log('user', this.user);
+        this.user = null;
         this.$.home.hide();
         this.$.login.show();
       }

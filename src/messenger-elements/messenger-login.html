@@ -39,7 +39,10 @@
         email: String,
         password: String,
         signUp: Boolean,
-        user: Object,
+        user: {
+          type: Object,
+          notify: true
+        },
         opened: {
           type: Boolean,
           value: false
