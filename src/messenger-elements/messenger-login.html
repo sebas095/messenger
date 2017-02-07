@@ -105,7 +105,7 @@
       },
 
       handleAuth: function(user) {
-        if (user) {
+        if (user !== null || this.user !== null) {
           this.fire('login');
         } else {
           console.log('Cerré sesión');

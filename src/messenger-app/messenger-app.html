@@ -4,16 +4,10 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../messenger-elements/messenger-login.html">
 <link rel="import" href="../messenger-elements/messenger-home.html">
+<link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
 
 <dom-module id="messenger-app">
   <template>
-    <firebase-app
-      auth-domain="messenger-facilito-a3d55.firebaseapp.com"
-      database-url="https://messenger-facilito-a3d55.firebaseio.com"
-      api-key="AIzaSyC5sZyAFVVxHnJ3J8rsCN0xanh9zUSmvWE"
-      storage-bucket="messenger-facilito-a3d55.appspot.com"
-      messaging-sender-id="868503103247">
-    </firebase-app>
     <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
@@ -32,9 +26,19 @@
         display: none;
       }
     </style>
+    <firebase-app
+      auth-domain="messenger-facilito-a3d55.firebaseapp.com"
+      database-url="https://messenger-facilito-a3d55.firebaseio.com"
+      api-key="AIzaSyC5sZyAFVVxHnJ3J8rsCN0xanh9zUSmvWE"
+      storage-bucket="messenger-facilito-a3d55.appspot.com"
+      messaging-sender-id="868503103247">
+    </firebase-app>
+
+    <app-localstorage-document key="user" data="{{user}}"></app-localstorage-document>
+
     <div id="contenedor" class="layout horizontal">
       <messenger-login id="login" user="{{user}}" on-login="authenticate" on-logout="signOut"></messenger-login>
-      <messenger-home id="home" ></messenger-home>
+      <messenger-home id="home"></messenger-home>
     </div>
   </template>
 
