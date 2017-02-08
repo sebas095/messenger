@@ -1,17 +1,55 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/image-mask/image-mask.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
 
 <dom-module id="messenger-room">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
+        @apply(--paper-font-common-base); 
+      }
+      #main {
+        height: 100vh;
+        padding: 1em;
+        background-color: var(--paper-grey-200);
+      }
+      #messages, #form {
+        max-width: 80%;
+      }
+      .avatar {
+        max-width: 18%;
+        margin-left: 2%;
       }
     </style>
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/rooms/:roomKey" data="{{routeData}}"></app-route>
-    <h1>Hola Mundo</h1>
+    <div id="main">
+      <div class="layout horizontal">
+        <div class="flex-auto" id="messages">
+          <!-- Mensajes -->
+          <h2>Mensajes</h2>
+        </div>
+        <div class="flex-auto avatar">
+          <!-- Avatar -->
+          <image-mask src="http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg" shape="hexagon" size="150"></image-mask>
+        </div>
+      </div>
+      <div class="layout horizontal">
+        <div class="flex-auto" id="form">
+          <!-- Formulario para enviar mensajes  -->
+          <h2>Formulario</h2>
+        </div>
+        <div class="flex-auto avatar">
+          <!-- Avatar  -->
+          <image-mask src="http://s-media-cache-ak0.pinimg.com/236x/f9/4d/7d/f94d7dddc3fa3d5322a619febf26fb97.jpg" shape="hexagon" size="150"></image-mask>
+        </div>
+      </div>
+    </div>
   </template>
 
   <script>
