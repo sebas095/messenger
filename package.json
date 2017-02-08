@@ -1,0 +1,18 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Windows clone MSN to chat",
+  "main": "server.js",
+  "repository": "git@github.com:sebas095/messenger.git",
+  "author": "sebastian duque restrepo <sebas_tian_95@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "express": "^4.14.1",
+    "morgan": "^1.8.0",
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "nodemon server"
+  }
+}

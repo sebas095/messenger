@@ -65,6 +65,7 @@
 
           const roomRef = firebase.database().ref('/rooms/' + roomKey);
           roomRef.set(usersJSON);
+          window.open('/rooms/' + roomKey);
         });
 
         if (this.user.uid === this.currentuser.uid) {
