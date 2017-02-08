@@ -38,7 +38,7 @@
 
     <div id="contenedor" class="layout horizontal">
       <messenger-login id="login" class="oculto" user="{{user}}" on-login="authenticate" on-logout="signOut"></messenger-login>
-      <messenger-home id="home" on-logout="signOut"></messenger-home>
+      <messenger-home id="home" on-logout="signOut" user="{{user}}"></messenger-home>
     </div>
   </template>
 

@@ -24,11 +24,14 @@
         background-color: var(--paper-green-500);
         margin-right: 2em;
       }
+      .username {
+        text-align: left;
+      }
     </style>
     <paper-card elevation="1" animated-shadow="true" id="card">
-      <div class="card-content layout horizontal">
+      <div class="card-content layout horizontal center">
         <img src$="{{user.photoURL}}" alt="avatar" height="80" class="flex-auto"/>
-        <div class="flex-auto">
+        <div class="flex-auto username">
           <span class="circle"></span>
           {{user.name}}
         </div>
@@ -41,7 +44,17 @@
       is: "messenger-user-card",
 
       properties: {
-        user: Object
+        user: Object,
+        currentuser: Object
+      },
+
+      ready: function() {
+        console.log(this.user.uid);
+        console.log(this.currentuser.uid);
+
+        if (this.user.uid === this.currentuser.uid) {
+          this.set('user.name', 'Yo');
+        }
       }
     });
   </script>

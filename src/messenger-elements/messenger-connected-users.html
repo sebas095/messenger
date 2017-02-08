@@ -11,7 +11,7 @@
     </style>
     <firebase-document path="/connected" id="connectedUsers"></firebase-document>
     <template is="dom-repeat" items="{{users}}" as="usr" id="usersElement">
-      <messenger-user-card user="[[usr]]"></messenger-user-card>
+      <messenger-user-card user="[[usr]]" id="[[usr.uid]]" currentuser="[[currentuser]]"></messenger-user-card>
     </template>
   </template>
 
@@ -23,7 +23,8 @@
         users: {
           type: Array,
           value: () => []
-        }
+        },
+        currentuser: Object
       },
 
       ready: function() {
@@ -37,7 +38,7 @@
       },
 
       _userAdded: function(data) {
-        console.log(data.key);
+        // console.log(data.key);
         const userRef = firebase.database().ref('/users/' + data.key);
         userRef.on('value', (data) => {
           const user = data.val();
@@ -47,7 +48,8 @@
       },
 
       _userRemoved: function(data) {
-        console.log(data.key);
+        // console.log(data.key);
+        this.removeChild(this.$$('#' + data.key));
       }
     });
   </script>

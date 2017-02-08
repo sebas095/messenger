@@ -29,7 +29,7 @@
       <img src="http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg" height="150" alt="avatar" />
     </header>
     <messenger-settings-menu></messenger-settings-menu>
-    <messenger-connected-users></messenger-connected-users>
+    <messenger-connected-users currentuser="{{user}}"></messenger-connected-users>
   </template>
   <script>
     Polymer({
@@ -44,6 +44,7 @@
           type: Boolean,
           value: false
         },
+        user: Object,
         animationConfig: {
           value: function() {
             return {
