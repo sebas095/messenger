@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
 <dom-module id="messenger-room">
   <template>
@@ -7,6 +9,8 @@
         display: block;
       }
     </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/rooms/:roomKey" data="{{routeData}}"></app-route>
     <h1>Hola Mundo</h1>
   </template>
 
@@ -14,6 +18,10 @@
     Polymer({
       is: "messenger-room",
 
+      attached: function() {
+        console.log(this.route);
+        console.log(this.routeData);
+      },
     });
   </script>
 </dom-module>

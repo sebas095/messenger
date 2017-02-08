@@ -9,7 +9,8 @@
     "iron-form": "^1.1.4",
     "app-storage": "PolymerElements/app-storage#^0.9.8",
     "image-mask": "^1.1.4",
-    "iron-pages": "^1.0.8"
+    "iron-pages": "^1.0.8",
+    "app-route": "PolymerElements/app-route"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
