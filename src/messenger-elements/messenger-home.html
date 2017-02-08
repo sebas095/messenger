@@ -3,6 +3,9 @@
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-down-animation.html">
 <link rel="import" href="../../bower_components/image-mask/image-mask.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="./messenger-settings-menu.html">
 <link rel="import" href="./messenger-connected-users.html">
 
@@ -19,6 +22,15 @@
         background-color: var(--paper-indigo-200);
         padding: 1em;
       }
+      paper-tab {
+        background-color: var(--paper-grey-200);
+        color: var(--paper-blue-900);
+        transition: all 0.4s;
+      }
+      paper-tab.iron-selected {
+        background-color: var(--paper-blue-900);
+        color: var(--paper-grey-200);
+      }
       messenger-settings-menu {
         position: absolute;
         top: 1em;
@@ -28,9 +40,21 @@
     </style>
     <header>
       <image-mask src="{{userData.photoURL}}" size="150" shape="hexagon"></image-mask>
+      <messenger-settings-menu></messenger-settings-menu>
     </header>
-    <messenger-settings-menu></messenger-settings-menu>
-    <messenger-connected-users currentuser="{{user}}"></messenger-connected-users>
+
+    <paper-tabs selected="{{selected}}">
+      <paper-tab>Amigos</paper-tab>
+      <paper-tab>Mi Perfil</paper-tab>
+    </paper-tabs>
+
+    <iron-pages selected="{{selected}}">
+      <section>
+        <messenger-connected-users currentuser="{{user}}"></messenger-connected-users>
+      </section>
+      <section></section>
+    </iron-pages>
+
   </template>
   <script>
     Polymer({
@@ -72,6 +96,7 @@
 
       ready: function() {
         this.hide();
+        this.selected = 0;
       },
 
       hide: function() {
