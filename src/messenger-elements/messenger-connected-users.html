@@ -28,6 +28,7 @@
       },
 
       ready: function() {
+        this.usersAdded = {};
         this.$.connectedUsers.ref.on('child_added', (data) => {
           this._userAdded(data);
         });
@@ -38,18 +39,24 @@
       },
 
       _userAdded: function(data) {
-        // console.log(data.key);
+        if (this.usersAdded[data.key]) return;
+
         const userRef = firebase.database().ref('/users/' + data.key);
         userRef.on('value', (data) => {
           const user = data.val();
           if (!user) return;
+          this.usersAdded[data.key] = true;
           this.push('users', user);
         });
       },
 
       _userRemoved: function(data) {
-        // console.log(data.key);
-        this.removeChild(this.$$('#' + data.key));
+        try {
+          this.usersAdded[data.key] = null;
+          this.removeChild(this.$$('#' + data.key));
+        } catch (e) {
+          this.usersAdded[data.key] = true;
+        }
       }
     });
   </script>
