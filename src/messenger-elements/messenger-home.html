@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-down-animation.html">
+<link rel="import" href="../../bower_components/image-mask/image-mask.html">
 <link rel="import" href="./messenger-settings-menu.html">
 <link rel="import" href="./messenger-connected-users.html">
 
@@ -26,7 +27,7 @@
       }
     </style>
     <header>
-      <img src="http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg" height="150" alt="avatar" />
+      <image-mask src="{{userData.photoURL}}" size="150" shape="hexagon"></image-mask>
     </header>
     <messenger-settings-menu></messenger-settings-menu>
     <messenger-connected-users currentuser="{{user}}"></messenger-connected-users>
@@ -44,7 +45,10 @@
           type: Boolean,
           value: false
         },
-        user: Object,
+        user: {
+          type: Object,
+          observer: '_userChanged'
+        },
         animationConfig: {
           value: function() {
             return {
@@ -83,6 +87,19 @@
 
       _animationFinished: function() {
         if (!this.opened) this.style.display = 'none';
+      },
+
+      findUser: function() {
+        const userRef = firebase.database().ref('/users/' + this.user.uid);
+        userRef.on('value', (data) => {
+          this.userData = data.val();
+        });
+      },
+
+      _userChanged: function() {
+        if (this.user) {
+          this.findUser();
+        }
       }
     });
   </script>
