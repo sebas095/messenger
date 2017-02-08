@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="messenger-connected-users">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+  </style>
+    <firebase-document path="/connected" id="connectedUsers"></firebase-document>
+    <template is="dom-repeat" items="{{users}}" as="usr" id="usersElement">
+      <li>{{u.name}}</li>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-connected-users",
+
+      properties: {
+        users: {
+          type: Array,
+          value: () => []
+        }
+      }
+
+      ready: function() {
+        this.$.connectedUsers.ref.on('child_added', (data) => {
+          this._userAdded(data);
+        });
+
+        this.$.connectedUsers.ref.on('child_removed', (data) => {
+          this._userRemoved(data);
+        });
+      },
+
+      _userAdded: function(data) {
+        console.log(data.key);
+        const userRef = firebase.database().ref('/users/' + data.key);
+        userRef.on('value', (data) => {
+          const user = data.val();
+          if (!user) return;
+          this.push('users', user);
+        });
+      },
+
+      _userRemoved: function(data) {
+        console.log(data.key);
+      }
+    });
+  </script>
+</dom-module>

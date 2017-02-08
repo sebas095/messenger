@@ -63,6 +63,10 @@
         this.$.login.show();
       },
 
+      ready: function() {
+        window.addEventListener('unload', () => this.unconnect());
+      },
+
       connect: function() {
         firebase.database().ref('/connected/' + this.user.uid).set(true);
       },

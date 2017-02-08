@@ -73,7 +73,6 @@
       },
 
       ready: function() {
-        this.$.auth.signOut();
         this.$.button.addEventListener('click', () => this.sendForm());
         this.$.auth.auth.onAuthStateChanged((usr) => this.handleAuth(usr));
         this.show();
