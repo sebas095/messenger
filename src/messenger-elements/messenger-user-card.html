@@ -51,11 +51,20 @@
       ready: function() {
         this.$.card.addEventListener('click', () => {
           let roomKey = '';
+          let usersJSON = {};
+
           if (this.user.uid > this.currentuser.uid) {
             roomKey = this.currentuser.uid + this.user.uid;
+            usersJSON[this.currentuser.uid] = true;
+            usersJSON[this.user.uid] = true;
           } else {
             roomKey = this.user.uid + this.currentuser.uid;
+            usersJSON[this.user.uid] = true;
+            usersJSON[this.currentuser.uid] = true;
           }
+
+          const roomRef = firebase.database().ref('/rooms/' + roomKey);
+          roomRef.set(usersJSON);
         });
 
         if (this.user.uid === this.currentuser.uid) {
