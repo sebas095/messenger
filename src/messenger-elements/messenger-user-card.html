@@ -49,8 +49,14 @@
       },
 
       ready: function() {
-        console.log(this.user.uid);
-        console.log(this.currentuser.uid);
+        this.$.card.addEventListener('click', () => {
+          let roomKey = '';
+          if (this.user.uid > this.currentuser.uid) {
+            roomKey = this.currentuser.uid + this.user.uid;
+          } else {
+            roomKey = this.user.uid + this.currentuser.uid;
+          }
+        });
 
         if (this.user.uid === this.currentuser.uid) {
           this.set('user.name', 'Yo');
