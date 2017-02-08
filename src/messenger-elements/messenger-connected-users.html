@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="./messenger-user-card.html">
 
 <dom-module id="messenger-connected-users">
   <template>
@@ -7,10 +8,10 @@
       :host {
         display: block;
       }
-  </style>
+    </style>
     <firebase-document path="/connected" id="connectedUsers"></firebase-document>
     <template is="dom-repeat" items="{{users}}" as="usr" id="usersElement">
-      <li>{{u.name}}</li>
+      <messenger-user-card user="[[usr]]"></messenger-user-card>
     </template>
   </template>
 
@@ -23,7 +24,7 @@
           type: Array,
           value: () => []
         }
-      }
+      },
 
       ready: function() {
         this.$.connectedUsers.ref.on('child_added', (data) => {

@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="messenger-user-card">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      paper-card {
+        width: 100%;
+      }
+      img {
+        max-width: 80px;
+        margin-right: 1em;
+      }
+      .circle {
+        display: inline-block;
+        float: right;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--paper-green-500);
+        margin-right: 2em;
+      }
+    </style>
+    <paper-card elevation="1" animated-shadow="true" id="card">
+      <div class="card-content layout horizontal">
+        <img src$="{{user.photoURL}}" alt="avatar" height="80" class="flex-auto"/>
+        <div class="flex-auto">
+          <span class="circle"></span>
+          {{user.name}}
+        </div>
+      </div>
+    </paper-card>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-user-card",
+
+      properties: {
+        user: Object
+      }
+    });
+  </script>
+</dom-module>
