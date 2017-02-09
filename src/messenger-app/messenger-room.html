@@ -9,6 +9,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../messenger-elements/messenger-form.html">
 <link rel="import" href="../messenger-elements/messenger-login.html">
+<link rel="import" href="../messenger-elements/messenger-messages.html">
 <link rel="import" href="../behaviors/login-behavior.html">
 
 <dom-module id="messenger-room">
@@ -47,7 +48,7 @@
       <div class="layout horizontal">
         <div class="flex-auto" id="messages">
           <!-- Mensajes -->
-          <h2>Mensajes</h2>
+          <messenger-messages roomkey="{{routeData.roomkey}}"></messenger-messages>
         </div>
         <div class="flex-auto avatar">
           <!-- Avatar -->

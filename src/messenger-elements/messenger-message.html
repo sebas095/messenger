@@ -1,0 +1,21 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="messenger-message">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <p>{{message.body}}</p>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-message",
+      properties: {
+        message: Object
+      }
+    });
+  </script>
+</dom-module>

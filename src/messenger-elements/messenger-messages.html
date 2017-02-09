@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="./messenger-message.html">
+
+<dom-module id="messenger-messages">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <template is="dom-repeat" id="messagesEl" items="{{messages}}" as="message">
+      <messenger-message message="{{message}}"></messenger-message>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-messages",
+
+      properties: {
+        roomkey: String,
+        messages: {
+          type: Array,
+          value: () => []
+        }
+      },
+
+      attached: function() {
+        this.dbRef = firebase.database().ref('/messages/' + this.roomkey);
+        this.dbRef.on('child_added', (data) => this.newMessage(data));
+      },
+
+      newMessage: function(data) {
+        this.push('messages', data.val());
+      }
+    });
+  </script>
+</dom-module>
