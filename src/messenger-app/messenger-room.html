@@ -19,7 +19,7 @@
         display: block;
         @apply(--paper-font-common-base);
       }
-      #home {
+      #main {
         height: 100vh;
         padding: 1em;
         background-color: var(--paper-grey-200);
@@ -44,7 +44,7 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/rooms/:roomkey" data="{{routeData}}"></app-route>
 
-    <div id="home">
+    <div id="main">
       <div class="layout horizontal">
         <div class="flex-auto" id="messages">
           <!-- Mensajes -->

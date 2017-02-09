@@ -5,6 +5,7 @@
 <link rel="import" href="../messenger-elements/messenger-login.html">
 <link rel="import" href="../messenger-elements/messenger-home.html">
 <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="../behaviors/login-behavior.html">
 
 <dom-module id="messenger-app">
   <template>
@@ -50,17 +51,15 @@
         user: Object
       },
 
+      behaviors: [MessengerApp.Login],
+
       authenticate: function(ev) {
         this.connect();
-        this.$.login.hide();
-        this.$.home.show();
       },
 
       signOut: function() {
         this.unconnect();
         this.user = null;
-        this.$.home.hide();
-        this.$.login.show();
       },
 
       ready: function() {
