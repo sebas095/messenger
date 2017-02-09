@@ -107,6 +107,7 @@
       },
 
       handleAuth: function(user) {
+        this.user = user;
         if (user !== null || this.user !== null) {
           this.fire('login');
         } else {

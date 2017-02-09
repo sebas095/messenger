@@ -1,0 +1,19 @@
+<script>
+  var MessengerApp = MessengerApp || {};
+  MessengerApp.Login = {
+    listeners: {
+      login: '_hideLoginWindow',
+      logout: '_showLoginWindow'
+    },
+
+    _hideLoginWindow: function() {
+      this.$.login.hide();
+      // this.$.home.show();
+    },
+
+    _showLoginWindow: function() {
+      this.$.login.show();
+      // this.$.home.hide();
+    }
+  };
+</script>

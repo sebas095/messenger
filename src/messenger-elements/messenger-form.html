@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<dom-module id="messenger-form">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      paper-textarea {
+        width: 100%;
+      }
+      paper-button {
+        width: 100px;
+        background-color: var(--paper-teal-400);
+        color: white;
+        margin: 1em;
+      }
+    </style>
+    <form is="iron-form" class="layout horizontal" id="form">
+      <paper-textarea value="{{message}}" label="Escribe tu mensaje aquí..." rows="5" id="textarea"></paper-textarea>
+      <paper-button id="button" raised>Enviar</paper-button>
+    </form>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-form",
+
+      properties: {
+        roomkey: String,
+        user: Object,
+        message: String
+      },
+
+      attached: function() {
+        this.dbRef = firebase.database().ref('/messages/' + this.roomkey);
+        this.$.button.addEventListener('click', () => this.sendMessage());
+      },
+
+      sendMessage: function() {
+        this.dbRef.push({
+          body: this.message,
+          user: this.user.uid,
+          kind: 'message'
+        });
+      }
+    });
+  </script>
+</dom-module>

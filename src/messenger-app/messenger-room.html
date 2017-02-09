@@ -1,19 +1,24 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/image-mask/image-mask.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../messenger-elements/messenger-form.html">
+<link rel="import" href="../messenger-elements/messenger-login.html">
+<link rel="import" href="../behaviors/login-behavior.html">
 
 <dom-module id="messenger-room">
   <template>
     <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
-        @apply(--paper-font-common-base); 
+        @apply(--paper-font-common-base);
       }
-      #main {
+      #home {
         height: 100vh;
         padding: 1em;
         background-color: var(--paper-grey-200);
@@ -26,9 +31,19 @@
         margin-left: 2%;
       }
     </style>
+    <firebase-app
+      auth-domain="messenger-facilito-a3d55.firebaseapp.com"
+      database-url="https://messenger-facilito-a3d55.firebaseio.com"
+      api-key="AIzaSyC5sZyAFVVxHnJ3J8rsCN0xanh9zUSmvWE"
+      storage-bucket="messenger-facilito-a3d55.appspot.com"
+      messaging-sender-id="868503103247">
+    </firebase-app>
+
+    <messenger-login id="login" user="{{currentuser}}"></messenger-login>
     <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/rooms/:roomKey" data="{{routeData}}"></app-route>
-    <div id="main">
+    <app-route route="{{route}}" pattern="/rooms/:roomkey" data="{{routeData}}"></app-route>
+
+    <div id="home">
       <div class="layout horizontal">
         <div class="flex-auto" id="messages">
           <!-- Mensajes -->
@@ -42,7 +57,7 @@
       <div class="layout horizontal">
         <div class="flex-auto" id="form">
           <!-- Formulario para enviar mensajes  -->
-          <h2>Formulario</h2>
+          <messenger-form user="{{currentuser}}" roomkey="{{routeData.roomkey}}"></messenger-form>
         </div>
         <div class="flex-auto avatar">
           <!-- Avatar  -->
@@ -56,10 +71,11 @@
     Polymer({
       is: "messenger-room",
 
-      attached: function() {
-        console.log(this.route);
-        console.log(this.routeData);
+      properties: {
+        currentuser: Object
       },
+
+      behaviors: [MessengerApp.Login]
     });
   </script>
 </dom-module>
