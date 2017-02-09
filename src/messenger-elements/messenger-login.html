@@ -84,13 +84,11 @@
           .then((user) => {
             // uid, displayName, email
             this.createUser(user);
-            console.log('Usuario creado');
           });
         } else {
           this.$.auth.signInWithEmailAndPassword(this.email, this.password)
             .then((user) => {
               this.user = user;
-              console.log('Sesión Iniciada');
             });
         }
       },
@@ -111,7 +109,6 @@
         if (user !== null || this.user !== null) {
           this.fire('login');
         } else {
-          console.log('Cerré sesión');
           this.fire('logout');
         }
       },

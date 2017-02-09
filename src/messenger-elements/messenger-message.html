@@ -28,9 +28,19 @@
         border-width: 10px;
         margin-top: -10px;
       }
+      .bubble.right {
+        margin-left: 45%;
+        background-color: var(--paper-green-200);
+      }
+      .bubble.right:after {
+        border-color: rgba(136, 183, 213, 0);
+        border-left-color: var(--paper-green-200);
+        right: 0%;
+        left: 100%;
+      }
     </style>
     <messenger-user uid="{{message.user}}" user="{{user}}"></messenger-user>
-    <div class="bubble">
+    <div class="bubble" id="bubble">
       <b>{{user.name}}: </b>
       {{message.body}}
     </div>
@@ -39,9 +49,21 @@
   <script>
     Polymer({
       is: "messenger-message",
+
       properties: {
         message: Object,
-        user: Object
+        user: Object,
+        uid:  String
+      },
+
+      ready: function() {
+        if (this.isFriend()) {
+          this.$.bubble.classList.add('right');
+        }
+      },
+
+      isFriend: function() {
+        return this.uid !== this.message.user;
       }
     });
   </script>

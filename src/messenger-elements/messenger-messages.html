@@ -12,7 +12,7 @@
       }
     </style>
     <template is="dom-repeat" id="messagesEl" items="{{messages}}" as="message">
-      <messenger-message message="{{message}}"></messenger-message>
+      <messenger-message uid="{{uid}}" message="{{message}}"></messenger-message>
     </template>
   </template>
 
@@ -25,7 +25,8 @@
         messages: {
           type: Array,
           value: () => []
-        }
+        },
+        uid: String
       },
 
       attached: function() {
