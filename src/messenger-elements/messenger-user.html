@@ -1,0 +1,36 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="messenger-user">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-user",
+
+      properties: {
+        uid: String,
+        user: {
+          type: Object,
+          notify: true
+        }
+      },
+
+      ready: function() {
+        if (this.uid) this.findUser();
+      },
+
+      findUser: function() {
+        const userRef = firebase.database().ref('/users/' + this.uid);
+        userRef.on('value', (data) => {
+          this.user = data.val();
+        });
+      }
+    });
+  </script>
+</dom-module>

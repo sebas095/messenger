@@ -98,7 +98,7 @@
       createUser: function(firebaseUser) {
         firebase.database().ref('/users/' + firebaseUser.uid).set({
           name: firebaseUser.email,
-          emil: firebaseUser.email,
+          email: firebaseUser.email,
           uid: firebaseUser.uid,
           photoURL: 'http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg'
         });
