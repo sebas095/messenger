@@ -8,6 +8,7 @@
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="./messenger-settings-menu.html">
 <link rel="import" href="./messenger-connected-users.html">
+<link rel="import" href="./messenger-user.html">
 
 <dom-module id="messenger-home">
   <template>
@@ -38,6 +39,7 @@
         color: white;
       }
     </style>
+    <messenger-user uid="{{user.uid}}" user="{{userData}}"></messenger-user>
     <header>
       <image-mask src="{{userData.photoURL}}" size="150" shape="hexagon"></image-mask>
       <messenger-settings-menu></messenger-settings-menu>
@@ -69,10 +71,7 @@
           type: Boolean,
           value: false
         },
-        user: {
-          type: Object,
-          observer: '_userChanged'
-        },
+        user: Object,
         animationConfig: {
           value: function() {
             return {
@@ -112,19 +111,6 @@
 
       _animationFinished: function() {
         if (!this.opened) this.style.display = 'none';
-      },
-
-      findUser: function() {
-        const userRef = firebase.database().ref('/users/' + this.user.uid);
-        userRef.on('value', (data) => {
-          this.userData = data.val();
-        });
-      },
-
-      _userChanged: function() {
-        if (this.user) {
-          this.findUser();
-        }
       }
     });
   </script>

@@ -13,7 +13,8 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "serve": "nodemon server"
   },
   "devDependencies": {
     "electron-prebuilt": "^1.4.13"
