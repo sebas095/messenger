@@ -1,4 +1,4 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
 
 <dom-module id="messenger-audio-notification">
   <template>
@@ -9,12 +9,13 @@
     </style>
     <audio id="audio" src="./notification.mp3"></audio>
   </template>
-
+  <script src="../../../bower_components/visibilityjs/lib/visibility.core.js"></script>
   <script>
     Polymer({
       is: "messenger-audio-notification",
       ready: function() {
-        this.$.audio.play();
+        // this.$.audio.play();
+        console.log(window.Visibility.state());
       },
     });
   </script>

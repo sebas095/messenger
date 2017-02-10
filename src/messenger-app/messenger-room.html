@@ -55,7 +55,7 @@
         </div>
         <div class="flex-auto avatar">
           <!-- Avatar -->
-          <image-mask src="http://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg" shape="hexagon" size="150"></image-mask>
+          <image-mask src="{{friendData.photoURL}}" shape="hexagon" size="150"></image-mask>
         </div>
       </div>
       <div class="layout horizontal">
@@ -65,7 +65,7 @@
         </div>
         <div class="flex-auto avatar">
           <!-- Avatar  -->
-          <image-mask src="http://s-media-cache-ak0.pinimg.com/236x/f9/4d/7d/f94d7dddc3fa3d5322a619febf26fb97.jpg" shape="hexagon" size="150"></image-mask>
+          <image-mask src="{{userData.photoURL}}" shape="hexagon" size="150"></image-mask>
         </div>
       </div>
     </div>
@@ -76,10 +76,54 @@
       is: "messenger-room",
 
       properties: {
-        currentuser: Object
+        currentuser: {
+          type: Object,
+          observer: '_userChanged'
+        },
+        friendid: String,
+        friendData: Object,
+        userData: Object
       },
 
-      behaviors: [MessengerApp.Login]
+      behaviors: [MessengerApp.Login],
+
+      _userChanged: function() {
+        if (this.currentuser) {
+          this.findFriendID();
+        }
+      },
+
+      findFriendID: function() {
+        firebase.database()
+          .ref('/rooms/' + this.routeData.roomkey)
+          .on('value', (data) => {
+            const room = data.val();
+            for (let uid in room) {
+              if (this.currentuser.uid !== uid)
+                this.friendid = uid;
+            }
+            this.findFriendData();
+            this.findUserData();
+          });
+      },
+
+      findUserData: function() {
+        firebase.database()
+          .ref('/users/' + this.currentuser.uid)
+          .on('value', (data) => {
+            this.userData = data.val();
+            console.log(this.userData);
+          });
+      },
+
+      findFriendData: function() {
+        firebase.database()
+          .ref('/users/' + this.friendid)
+          .on('value', (data) => {
+            this.friendData = data.val();
+            console.log(this.friendData);
+          });
+      }
     });
   </script>
 </dom-module>
