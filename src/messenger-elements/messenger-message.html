@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="./messenger-user.html">
+<link rel="import" href="./messenger-audio-notification/messenger-audio-notification.html">
 
 <dom-module id="messenger-message">
   <template>
@@ -39,6 +40,7 @@
         left: 100%;
       }
     </style>
+    <messenger-audio-notification></messenger-audio-notification>
     <messenger-user uid="{{message.user}}" user="{{user}}"></messenger-user>
     <div class="bubble" id="bubble">
       <b>{{user.name}}: </b>

@@ -9,6 +9,7 @@
 <link rel="import" href="./messenger-settings-menu.html">
 <link rel="import" href="./messenger-connected-users.html">
 <link rel="import" href="./messenger-user.html">
+<link rel="import" href="./messenger-user-settings.html">
 
 <dom-module id="messenger-home">
   <template>
@@ -54,7 +55,9 @@
       <section>
         <messenger-connected-users currentuser="{{user}}"></messenger-connected-users>
       </section>
-      <section></section>
+      <section>
+        <messenger-user-settings user="{{userData}}"></messenger-user-settings>
+      </section>
     </iron-pages>
 
   </template>

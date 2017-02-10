@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<dom-module id="messenger-user-settings">
+  <template>
+    <style>
+      :host {
+        display: block;
+        text-align: left;
+        padding: 1em 2em;
+      }
+      paper-button {
+        color: white;
+        margin: 1em 0 0 0;
+        background-color: var(--accent-color);
+      }
+      paper-input {
+        display: block;
+      }
+    </style>
+    <form is="iron-form">
+      <p>Modifica tu perfil</p>
+      <paper-input label="Nombre..." value="{{user.name}}"></paper-input>
+      <paper-input label="URL avatar..." value="{{user.photoURL}}"></paper-input>
+      <div class="text-right">
+        <paper-button raised on-tap="save">Guardar perfil</paper-button>
+      </div>
+    </form>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-user-settings",
+
+      properties: {
+        user: Object
+      },
+
+      save: function() {
+        firebase.database()
+          .ref('/users/' + this.user.uid)
+          .set(this.user);
+      }
+    });
+  </script>
+</dom-module>

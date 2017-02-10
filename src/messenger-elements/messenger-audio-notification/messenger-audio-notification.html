@@ -1,0 +1,21 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="messenger-audio-notification">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+    <audio id="audio" src="./notification.mp3"></audio>
+  </template>
+
+  <script>
+    Polymer({
+      is: "messenger-audio-notification",
+      ready: function() {
+        this.$.audio.play();
+      },
+    });
+  </script>
+</dom-module>
